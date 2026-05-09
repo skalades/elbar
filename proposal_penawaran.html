@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Penawaran Sistem Manajemen - Khusus untuk Elbar Car Wash</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --text: #334155;
+            --danger: #ef4444;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            background-color: #e2e8f0;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 60px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid var(--light);
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .badge {
+            background: #dbeafe;
+            color: var(--primary-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: var(--dark);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h2 {
+            color: var(--dark);
+            font-size: 1.8rem;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: var(--light);
+            margin-left: 15px;
+        }
+        .pain-points {
+            background-color: #fef2f2;
+            border-left: 5px solid var(--danger);
+            padding: 30px;
+            border-radius: 0 12px 12px 0;
+            margin: 40px 0;
+        }
+        .pain-points h3 {
+            color: var(--danger);
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+        .pain-points ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .pain-points li {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .solution {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .solution h3 {
+            color: var(--primary-dark);
+            font-size: 1.6rem;
+            margin-top: 0;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 30px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(0,0,0,0.1);
+            border-color: transparent;
+        }
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: #eff6ff;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+        }
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .feature-desc {
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+        .why-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .why-list li {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .why-list li .check {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        .why-list h4 {
+            margin: 0 0 5px 0;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        .why-list p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+        .roi-section {
+            background: var(--dark);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 50px 0;
+        }
+        .roi-section h3 {
+            color: #38bdf8;
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+        .cta-box {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 16px;
+            margin-top: 60px;
+        }
+        .cta-box h2 {
+            color: white;
+            justify-content: center;
+            margin-top: 0;
+            border: none;
+        }
+        .cta-box h2::after {
+            display: none;
+        }
+        .btn {
+            display: inline-block;
+            background: #fff;
+            color: var(--primary-dark);
+            padding: 16px 40px;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+            background: var(--light);
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                padding: 30px 20px;
+                border-radius: 0;
+            }
+            .logo { font-size: 2.2rem; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge">Proposal Digitalisasi Bisnis</span>
+        <div class="logo">🚗 Penawaran Sistem IT</div>
+        <h1>Tingkatkan Omzet & Hentikan Kebocoran Dana di Elbar Car Wash</h1>
+        <p class="subtitle">Sistem Manajemen Cuci Mobil All-in-One yang dirancang khusus untuk mempermudah operasional, memanjakan pelanggan, dan memaksimalkan profit Elbar Car Wash. Dilengkapi 11 Modul Komprehensif untuk mendigitalisasi setiap aspek bisnis Anda.</p>
+    </header>
+
+    <div class="pain-points">
+        <h3>🚨 Fakta Lapangan: Masalah yang Sering Membuat Usaha Cuci Mobil Sulit Berkembang</h3>
+        <ul>
+            <li><strong>Antrian Kacau & Tidak Transparan:</strong> Pelanggan sering kesal karena tidak tahu kapan mobilnya selesai, berujung pada hilangnya pelanggan setia.</li>
+            <li><strong>Kebocoran Pendapatan (Fraud):</strong> Pencatatan manual di buku sangat rawan dimanipulasi. Jumlah mobil yang dicuci tidak sesuai dengan uang di kasir.</li>
+            <li><strong>Perhitungan Komisi Pegawai yang Rumit:</strong> Menghitung bagi hasil atau komisi per mobil secara manual sering memicu konflik dan salah hitung.</li>
+            <li><strong>Tidak Ada Database Pelanggan:</strong> Anda tidak tahu siapa pelanggan VIP Anda, dan tidak bisa melakukan promosi untuk memanggil mereka kembali saat sepi.</li>
+            <li><strong>Stok Bahan Baku Hilang:</strong> Shampo, semir ban, dan parfum sering habis tanpa tahu riwayat pemakaiannya karena tidak ada sistem inventori.</li>
+        </ul>
+    </div>
+
+    <div class="solution">
+        <h3>✨ Solusinya: Beralih ke Sistem Manajemen Digital</h3>
+        <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; color: var(--text);">
+            Sistem ini bukan sekadar aplikasi kasir. Ini adalah <strong>sistem autopilot komprehensif</strong>. Mulai dari mobil masuk, antrian dikerjakan, pembayaran di kasir, hingga perhitungan stok dan komisi karyawan — semuanya dikelola dalam satu pintu.
+        </p>
+    </div>
+
+    <h2>11 Fitur & Modul Super Lengkap untuk Elbar Car Wash</h2>
+    <p style="margin-bottom: 30px; color: #64748b; font-size: 1.1rem;">Setiap celah bisnis Anda akan ditutup rapat dengan 11 modul standar enterprise kami:</p>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <div class="feature-title">1. Keamanan Akses & Anti-Kecurangan</div>
+            <div class="feature-desc">Login berbeda untuk Owner, Kasir, dan Teknisi. Kasir tidak bisa mengubah data penjualan sesuka hati. Setiap aktivitas terekam jelas di sistem (Activity Log) sehingga mengeliminasi kecurangan.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🏷️</div>
+            <div class="feature-title">2. Kustomisasi Layanan & Harga Dinamis</div>
+            <div class="feature-desc">Tentukan harga otomatis berdasarkan ukuran mobil (Kecil, Sedang, Besar). Buat promo layanan "Bundling" (Cuci + Poles) atau layanan tambahan (Add-on) dengan sekali klik.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <div class="feature-title">3. Pencatatan Order Super Cepat</div>
+            <div class="feature-desc">Antrian tidak akan macet di kasir! Pencatatan order hanya membutuhkan input <strong>Plat Nomor Kendaraan</strong>. Sistem dirancang untuk kecepatan operasional maksimal tanpa form pengisian yang bertele-tele.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🚦</div>
+            <div class="feature-title">4. Monitor Antrian Layar TV</div>
+            <div class="feature-desc">Tampilkan status antrian secara real-time (Menunggu ➔ Sedang Dicuci ➔ Selesai) di TV ruang tunggu. Pelanggan merasa dilayani layaknya di dealer resmi bintang 5.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <div class="feature-title">5. POS Kasir & Transaksi Digital</div>
+            <div class="feature-desc">Aplikasi kasir yang bekerja super cepat. Mendukung pembayaran Tunai, Transfer Bank, dan QRIS. Struk pembayaran bisa dicetak langsung ke <strong>Printer Thermal</strong> maupun dikirim via WhatsApp.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <div class="feature-title">6. Loyalty Program Berbasis Plat Nomor</div>
+            <div class="feature-desc">Ubah pelanggan biasa jadi VIP tanpa ribet! Sistem otomatis melacak riwayat kedatangan berdasarkan Plat Nomor dan menghitung "Poin Cuci" (misal: Kumpul 10 poin, cuci gratis 1x).</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🧑‍🔧</div>
+            <div class="feature-title">7. Perhitungan Komisi Karyawan</div>
+            <div class="feature-desc">Cukup tetapkan teknisi mana yang mencuci mobil tersebut. Sistem akan otomatis merekap performa harian dan menghitung jumlah komisi mereka. Tak ada lagi ribut soal bagi hasil.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🧴</div>
+            <div class="feature-title">8. Kontrol Stok Bahan Baku & Inventori</div>
+            <div class="feature-desc">Pantau sisa shampo, obat jamur kaca, dan semir ban. Sistem akan melacak pemakaian setiap order dan memberikan peringatan otomatis jika stok mulai menipis.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">9. Laporan & Analitik Bisnis Real-Time</div>
+            <div class="feature-title"></div>
+            <div class="feature-desc">Pantau omzet harian, layanan terlaris, dan laba kotor langsung dari HP Anda sambil liburan. Semua disajikan dalam bentuk grafik (chart) visual yang mudah dipahami.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">⚙️</div>
+            <div class="feature-title">10. Pengaturan & Multi-Cabang</div>
+            <div class="feature-desc">Atur nama toko, logo, dan jam operasional. Jika Anda berencana membuka cabang baru, sistem ini sudah mendukung manajemen banyak cabang dalam 1 dashboard owner.</div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <div class="feature-title">11. Booking Online Pelanggan</div>
+            <div class="feature-desc">Berikan halaman website khusus untuk toko Anda! Pelanggan bisa melakukan booking jadwal cuci dari rumah via HP mereka, mengurai penumpukan mobil di lokasi.</div>
+        </div>
+    </div>
+
+    <h2>Mengapa Anda TIDAK BISA Menolak Investasi Ini?</h2>
+    <ul class="why-list">
+        <li>
+            <div class="check">✔️</div>
+            <div>
+                <h4>Balik Modal (ROI) Cepat</h4>
+                <p>Mencegah kebocoran dana 1-2 mobil per hari saja sudah menutupi biaya sistem ini dalam waktu singkat.</p>
+            </div>
+        </li>
+        <li>
+            <div class="check">✔️</div>
+            <div>
+                <h4>Bisnis Bisa Ditinggal</h4>
+                <p>Owner tidak perlu tongkrongi kasir tiap hari. Semua laporan real-time ada di genggaman tangan.</p>
+            </div>
+        </li>
+        <li>
+            <div class="check">✔️</div>
+            <div>
+                <h4>Tampil Lebih Profesional</h4>
+                <p>Bisnis cuci mobil dengan struk cetak, antrian TV, dan notif WA membuat pelanggan merasa di tempat premium.</p>
+            </div>
+        </li>
+        <li>
+            <div class="check">✔️</div>
+            <div>
+                <h4>Retensi Pelanggan Naik 300%</h4>
+                <p>Dengan sistem poin dan database, pelanggan enggan pindah ke kompetitor karena merasa dihargai.</p>
+            </div>
+        </li>
+    </ul>
+
+    <div class="roi-section">
+        <h3>💡 Hitungan Sederhana:</h3>
+        <p style="font-size: 1.1rem;">
+            Bayangkan tanpa sistem, ada kebocoran <strong>2 mobil/hari</strong> (Rp 100.000/hari).<br>
+            Dalam sebulan Anda kehilangan uang <strong>Rp 3.000.000,-</strong>.<br>
+            Sistem cerdas ini akan <strong>mengunci rapat kebocoran ini</strong>. Sistem memaksakan setiap mobil yang dicuci HARUS masuk ke komputer. Investasi sistem ini menyelamatkan jutaan rupiah uang Anda setiap bulannya secara permanen.
+        </p>
+    </div>
+
+    <div class="cta-box">
+        <h2>Siap Mengubah Bisnis Elbar Car Wash Menjadi Auto-Pilot?</h2>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin-top: 15px;">
+            Jangan biarkan kompetitor selangkah lebih maju. Amankan keuntungan Anda dan berikan pelayanan terbaik untuk pelanggan mulai HARI INI.
+        </p>
+        <a href="#" class="btn">Jadwalkan Demo Gratis Sekarang</a>
+    </div>
+
+    <div class="footer-note">
+        <p>Proposal Penawaran Eksklusif disusun oleh Tim Developer IT</p>
+        <p>© 2026 Proposal Penawaran untuk Elbar Car Wash</p>
+    </div>
+</div>
+
+</body>
+</html>
