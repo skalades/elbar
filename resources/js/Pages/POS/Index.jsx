@@ -4,7 +4,10 @@ import { Head, useForm, usePage, Link, router } from '@inertiajs/react';
 import Card from '@/Components/Card';
 import FloatingActionButton from '@/Components/FloatingActionButton';
 import BottomSheetModal from '@/Components/BottomSheetModal';
-import { ShoppingCart, Car, Plus, Minus, Trash2, Printer, CheckCircle, XCircle } from 'lucide-react';
+import PrinterStatusBadge from '@/Components/PrinterStatusBadge';
+import PrinterSettings from '@/Components/PrinterSettings';
+import useThermalPrinter from '@/hooks/useThermalPrinter';
+import { ShoppingCart, Car, Plus, Minus, Trash2, Printer, CheckCircle, XCircle, Bluetooth } from 'lucide-react';
 import { formatRupiah } from '@/utils/currency';
 
 export default function POSIndex({ categories, services, queues }) {
@@ -25,6 +28,22 @@ export default function POSIndex({ categories, services, queues }) {
     });
     const [vehicleInfo, setVehicleInfo] = useState(null);
     const [isQueueOpen, setIsQueueOpen] = useState(false);
+    const [isPrinterSettingsOpen, setIsPrinterSettingsOpen] = useState(false);
+
+    // Bluetooth Thermal Printer Hook
+    const {
+        isSupported: printerSupported,
+        isConnected: printerConnected,
+        status: printerStatus,
+        printerName,
+        error: printerError,
+        connect: connectPrinter,
+        disconnect: disconnectPrinter,
+        printReceipt,
+        clearError: clearPrinterError,
+    } = useThermalPrinter({
+        cashierName: usePage().props.auth?.user?.name || '-',
+    });
 
     // Watch for flash success
     useEffect(() => {
@@ -95,8 +114,9 @@ export default function POSIndex({ categories, services, queues }) {
         setData('plate_number', val);
     };
 
-    const handlePrintStruk = () => {
-        window.print();
+    const handlePrintStruk = async () => {
+        if (!lastOrder) return;
+        await printReceipt(lastOrder);
     };
 
     const handleStatusChange = (orderId, newStatus) => {
@@ -117,12 +137,21 @@ export default function POSIndex({ categories, services, queues }) {
             header={
                 <div className="flex justify-between items-center print:hidden">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800">Kasir (POS)</h2>
-                    <button
-                        onClick={() => setIsQueueOpen(true)}
-                        className="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2"
-                    >
-                        <Car size={16} /> Antrian ({queues.length})
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <PrinterStatusBadge
+                            isSupported={printerSupported}
+                            isConnected={printerConnected}
+                            status={printerStatus}
+                            printerName={printerName}
+                            onClick={() => setIsPrinterSettingsOpen(true)}
+                        />
+                        <button
+                            onClick={() => setIsQueueOpen(true)}
+                            className="bg-white border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                        >
+                            <Car size={16} /> Antrian ({queues.length})
+                        </button>
+                    </div>
                 </div>
             }
         >
@@ -455,10 +484,29 @@ export default function POSIndex({ categories, services, queues }) {
                         <div className="flex flex-col gap-3">
                             <button
                                 onClick={handlePrintStruk}
-                                className="w-full inline-flex justify-center items-center gap-2 rounded-xl border border-transparent bg-indigo-600 px-4 py-3 text-base font-bold text-white shadow-sm hover:bg-indigo-700"
+                                disabled={printerStatus === 'printing'}
+                                className="w-full inline-flex justify-center items-center gap-2 rounded-xl border border-transparent bg-indigo-600 px-4 py-3 text-base font-bold text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50"
                             >
-                                <Printer size={20} /> Cetak Struk (Thermal)
+                                {printerStatus === 'printing' ? (
+                                    <>
+                                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                        Mencetak...
+                                    </>
+                                ) : (
+                                    <>
+                                        {printerConnected ? <Bluetooth size={20} /> : <Printer size={20} />}
+                                        {printerConnected ? 'Cetak via Bluetooth' : 'Cetak Struk (Browser)'}
+                                    </>
+                                )}
                             </button>
+                            {!printerConnected && printerSupported && (
+                                <button
+                                    onClick={connectPrinter}
+                                    className="w-full inline-flex justify-center items-center gap-2 rounded-xl border-2 border-indigo-200 bg-indigo-50 px-4 py-3 text-sm font-bold text-indigo-700 hover:bg-indigo-100 transition-colors"
+                                >
+                                    <Bluetooth size={16} /> Hubungkan Printer Bluetooth
+                                </button>
+                            )}
                             <button
                                 onClick={closeSuccessModal}
                                 className="w-full inline-flex justify-center rounded-xl border border-gray-300 bg-white px-4 py-3 text-base font-bold text-gray-700 shadow-sm hover:bg-gray-50"
@@ -616,6 +664,20 @@ export default function POSIndex({ categories, services, queues }) {
                     </div>
                 </div>
             )}
+
+            {/* Printer Settings Modal */}
+            <PrinterSettings
+                isOpen={isPrinterSettingsOpen}
+                onClose={() => setIsPrinterSettingsOpen(false)}
+                isSupported={printerSupported}
+                isConnected={printerConnected}
+                status={printerStatus}
+                printerName={printerName}
+                error={printerError}
+                onConnect={connectPrinter}
+                onDisconnect={disconnectPrinter}
+                onClearError={clearPrinterError}
+            />
         </AuthenticatedLayout>
     );
 }
